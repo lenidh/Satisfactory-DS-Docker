@@ -1,7 +1,7 @@
 # Use Ubuntu 20.04 as base image
 FROM ubuntu:20.04
 
-LABEL org.opencontainers.image.authors="Yannick Fricke"
+LABEL org.opencontainers.image.authors="lenidh"
 
 # Install required system packages
 RUN apt-get update && apt-get upgrade -y && apt-get install -y curl software-properties-common && rm -rf /var/lib/apt/lists/*
