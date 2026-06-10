@@ -7,7 +7,7 @@ const githubToken = process.env.GH_TOKEN;
 const forceUpdate = process.env.FORCE_UPDATE;
 const depotName = process.env.DEPOT_NAME || 'public';
 const imageName = 'lenidh/satisfactory-server';
-const ghcrImageName = 'ghcr.io/lenidh/satisfactory-ds-docker';
+const ghcrImageName = 'ghcr.io/lenidh/satisfactory-server';
 
 function setup() {
     if (!dockerToken) {
