@@ -1,16 +1,16 @@
 {
-  "name": "@yannickfricke/satisfactory-ds-docker-ci",
+  "name": "@lenidh/satisfactory-ds-docker-ci",
   "private": true,
   "version": "0.0.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YannickFricke/Satisfactory-DS-Docker.git"
+    "url": "git+https://github.com/lenidh/Satisfactory-DS-Docker.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/YannickFricke/Satisfactory-DS-Docker/issues"
+    "url": "https://github.com/lenidh/Satisfactory-DS-Docker/issues"
   },
   "dependencies": {
     "execa": "^5.1.1",
