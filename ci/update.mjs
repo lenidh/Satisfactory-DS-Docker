@@ -6,8 +6,8 @@ const dockerToken = process.env.DOCKER_TOKEN;
 const githubToken = process.env.GH_TOKEN;
 const forceUpdate = process.env.FORCE_UPDATE;
 const depotName = process.env.DEPOT_NAME || 'public';
-const imageName = 'yfricke/satisfactory-server';
-const ghcrImageName = 'ghcr.io/yannickfricke/satisfactory-ds-docker';
+const imageName = 'lenidh/satisfactory-server';
+const ghcrImageName = 'ghcr.io/lenidh/satisfactory-ds-docker';
 
 function setup() {
     if (!dockerToken) {
@@ -22,7 +22,7 @@ function setup() {
         throw new Error('PREVIOUS_TAG environment variable is not set');
     }
 
-    const dockerLoginResult = execa.sync('docker', ['login', '-u', `yfricke`, '-p', dockerToken], {
+    const dockerLoginResult = execa.sync('docker', ['login', '-u', `lenidh`, '-p', dockerToken], {
         all: true,
         stdio: 'inherit'
     });
@@ -31,7 +31,7 @@ function setup() {
         throw new Error(`Failed to login to Docker hub: ${dockerLoginResult.all}`);
     }
 
-    const githubLoginResult = execa.sync('docker', ['login', 'ghcr.io', '-u', `yannickfricke`, '-p', githubToken], {
+    const githubLoginResult = execa.sync('docker', ['login', 'ghcr.io', '-u', `lenidh`, '-p', githubToken], {
         all: true,
         stdio: 'inherit'
     });
@@ -40,8 +40,8 @@ function setup() {
         throw new Error(`Failed to login to GitHub container registry: ${githubLoginResult.all}`);
     }
 
-    execa.sync('git', ['config', '--global', 'user.email', 'yannickfricke@googlemail.com']);
-    execa.sync('git', ['config', '--global', 'user.name', 'YannickFricke']);
+    execa.sync('git', ['config', '--global', 'user.email', 'lenidh@lenidh.invalid']);
+    execa.sync('git', ['config', '--global', 'user.name', 'lenidh']);
 }
 
 function buildImage() {
