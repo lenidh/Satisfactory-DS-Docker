@@ -9,18 +9,18 @@ jobs:
     update:
         runs-on: ubuntu-24.04
         steps:
-            - uses: actions/checkout@v2.2.0
+            - uses: actions/checkout@v7
               with:
                   fetch-depth: 0
             - name: Use Node.js 24.x
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v7
               with:
                   node-version: 24.x
             - name: Install system dependencies
               run: sudo apt-get update && sudo apt-get install -y git curl jq
             - name: 'Get Previous tag'
               id: previoustag
-              uses: 'WyriHaximus/github-action-get-previous-tag@v1'
+              uses: 'WyriHaximus/github-action-get-previous-tag@v2'
               with:
                   fallback: 0000000
             - name: 'Run the update script'
