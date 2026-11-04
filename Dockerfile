@@ -1,5 +1,5 @@
-# Use Ubuntu 20.04 as base image
-FROM ubuntu:20.04
+# Use Ubuntu 26.04 as base image
+FROM ubuntu:26.04
 
 LABEL org.opencontainers.image.authors="lenidh"
 
@@ -10,7 +10,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y curl software-pro
 RUN add-apt-repository multiverse && dpkg --add-architecture i386
 
 # Install required SteamCMD dependencies
-RUN apt-get update && apt-get upgrade -y && apt-get install -y lib32gcc1 && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && apt-get install -y lib32gcc-s1 && rm -rf /var/lib/apt/lists/*
 
 # Add an unprivileged user
 # Running things in Docker as root is a security risk and should be avoided
@@ -32,7 +32,17 @@ WORKDIR /home/steam/Steam
 RUN curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
 
 # Install the Satisfactory dedicated server
-RUN /home/steam/Steam/steamcmd.sh +force_install_dir SatisfactoryDedicatedServer +login anonymous +app_update 1690800 +quit
+# app_info_update loads the app config first; a fresh SteamCMD otherwise often fails with
+# "Missing configuration" (exit code 8). Retry once, as the first run after self-update is flaky.
+RUN for i in 1 2; do \
+      /home/steam/Steam/steamcmd.sh \
+        +force_install_dir /home/steam/Steam/SatisfactoryDedicatedServer \
+        +login anonymous \
+        +app_info_update 1 \
+        +app_update 1690800 validate \
+        +quit && exit 0; \
+      echo "steamcmd failed (attempt $i), retrying..."; \
+    done; exit 1
 
 # Set the entrypoint to the dedicated server start script
 ENTRYPOINT [ "/home/steam/Steam/SatisfactoryDedicatedServer/FactoryServer.sh" ]
