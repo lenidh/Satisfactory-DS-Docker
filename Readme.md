@@ -68,7 +68,7 @@ Checkout the Satisfactory Q&A platform for the most recent information regarding
 
 If you found a bug in the server / ingame you can report the bug directly to Coffee Stain Studios [here](https://questions.satisfactorygame.com/).
 
-When it comes to the Docker support you can use the [issue tracker](https://github.com/YannickFricke/Satisfactory-DS-Docker/issues) of this repository.
+When it comes to the Docker support you can use the [issue tracker](https://github.com/lenidh/Satisfactory-DS-Docker/issues) of this repository.
 
 ## License
 
