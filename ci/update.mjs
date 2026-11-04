@@ -143,8 +143,8 @@ async function checkForUpdates() {
         console.log(`New build available: ${latestBuildId}`);
 
         buildImage();
-        //createTags(latestBuildId);
-        //push();
+        createTags(latestBuildId);
+        push();
     } catch (error) {
         console.error(`Unhandled script error: ${error}`);
         process.exit(1);
