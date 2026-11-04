@@ -1,5 +1,5 @@
-# Use Ubuntu 20.04 as base image
-FROM ubuntu:20.04
+# Use Ubuntu 24.04 as base image
+FROM ubuntu:26.04
 
 LABEL org.opencontainers.image.authors="lenidh"
 
