@@ -32,7 +32,17 @@ WORKDIR /home/steam/Steam
 RUN curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
 
 # Install the Satisfactory dedicated server
-RUN /home/steam/Steam/steamcmd.sh +force_install_dir SatisfactoryDedicatedServer +login anonymous +app_update 1690800 +quit
+# app_info_update loads the app config first; a fresh SteamCMD otherwise often fails with
+# "Missing configuration" (exit code 8). Retry once, as the first run after self-update is flaky.
+RUN for i in 1 2; do \
+      /home/steam/Steam/steamcmd.sh \
+        +force_install_dir /home/steam/Steam/SatisfactoryDedicatedServer \
+        +login anonymous \
+        +app_info_update 1 \
+        +app_update 1690800 validate \
+        +quit && exit 0; \
+      echo "steamcmd failed (attempt $i), retrying..."; \
+    done; exit 1
 
 # Set the entrypoint to the dedicated server start script
 ENTRYPOINT [ "/home/steam/Steam/SatisfactoryDedicatedServer/FactoryServer.sh" ]
